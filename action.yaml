@@ -3,6 +3,8 @@ description: 'Get version from latest tag, bump it and create new tag'
 icon: tag
 color: orange
 outputs:
+  old_version:
+    description: 'Old version'
   new_version:
     description: 'New version'
 runs:
