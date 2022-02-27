@@ -1,1 +1,1 @@
-# semver-action
+# actions-semver
