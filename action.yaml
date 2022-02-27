@@ -1,5 +1,7 @@
 name: 'Semver Github Action'
 description: 'Get version from latest tag, bump it and create new tag'
+icon: tag
+color: orange
 outputs:
   new_version:
     description: 'New version'
