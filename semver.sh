@@ -2,36 +2,41 @@
 
 version=$(git describe --abbrev=1 --tags)
 
-v=( ${version//./ } )
-if [ ${#v[@]} -ne 3 ]
-then
+if [[ $version =~ (v?)([0-9]+)\.([0-9]+)\.([0-9]+) ]]; 
+then 
+  prefix=${BASH_REMATCH[1]}
+  major=${BASH_REMATCH[2]}
+  minor=${BASH_REMATCH[3]}
+  patch=${BASH_REMATCH[4]}
+else 
   echo "Invalid tag $version"
-  exit 1
 fi
+
+echo "Current tag: $version"
 
 message=$(git log -n 1 HEAD --format=%B)
 
 if [[ "$message" == *"#major"* ]]; then
-  ((v[0]++))
-  v[1]=0
-  v[2]=0
+  ((major++))
+  minor=0
+  patch=0
 elif [[ "$message" == *"#minor"* ]]; then
-  ((v[1]++))
-  v[2]=0
+  ((minor++))
+  patch=0
 else
-  ((v[2]++))
+  ((patch++))
 fi
 
-new_version="${v[0]}.${v[1]}.${v[2]}"
+new_version="$prefix$major.$minor.$patch"
 
 git tag $new_version
 
 if [ $? -eq 0 ]; then
-  echo "New tag: ${v[0]}.${v[1]}.${v[2]} (previous was $version)"
+  echo "New tag: $new_version"
   echo "::set-output name=new_version::$new_version"
   exit 0
 else
-  echo "Cannot create new tag"
+  echo "Cannot create new tag: $new_version"
   exit 1
 fi
 
