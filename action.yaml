@@ -1,0 +1,8 @@
+name: 'Semver Github Action'
+description: 'Get version from latest tag, bump it and create new tag'
+outputs:
+  new_version:
+    description: 'New version'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
