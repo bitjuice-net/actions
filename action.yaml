@@ -4,8 +4,12 @@ branding:
   icon: tag
   color: orange
 outputs:
+  old_tag:
+    description: 'Old tag'
   old_version:
     description: 'Old version'
+  new_tag:
+    description: 'New tag'
   new_version:
     description: 'New version'
 runs:
