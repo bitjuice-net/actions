@@ -1,8 +1,11 @@
 #!/bin/bash
+set -eu
 
-current_tag=$(git describe --abbrev=0 --tags)
-message=$(git log -n 1 HEAD --format=%B)
-suffix=$(git rev-parse --short HEAD)
+cd "${GITHUB_WORKSPACE}" || exit
+
+current_tag="$(git describe --abbrev=0 --tags)"
+message="$(git log -n 1 HEAD --format=%B)"
+suffix="$(git rev-parse --short HEAD)"
 
 if [[ $current_tag =~ ^(v?)([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; 
 then 
@@ -29,13 +32,13 @@ fi
 
 new_version="$major.$minor.$patch"
 
-if [[ $INPUT_PRE_RELEASE == "true" ]]; then
+if [[ ${INPUT_PRE_RELEASE} == "true" ]]; then
   new_tag="$prefix$new_version-$suffix"
 else
   new_tag="$prefix$new_version"
 fi
 
-git tag $new_tag
+git tag "$new_tag"
 
 if [ $? -eq 0 ]; then
   echo "Current tag: $current_tag"
