@@ -3,11 +3,11 @@ description: 'Get version from latest tag, bump it and create new tag'
 branding:
   icon: tag
   color: orange
-4 inputs:
-5   pre_release:
-6     description: 'indicates if this is a pre-release build'
-7     required: false
-8     default: false
+inputs:
+  pre_release:
+    description: 'indicates if this is a pre-release build'
+    required: false
+    default: false
 outputs:
   tag:
     description: 'Current tag'
