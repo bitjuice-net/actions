@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -u
 
 cd "${GITHUB_WORKSPACE}" || exit
 
@@ -45,18 +45,18 @@ else
   new_tag="$prefix$new_version"
 fi
 
+echo "New tag: $new_tag"
+
 git tag "$new_tag"
 
 if [ $? -eq 0 ]; then
-  echo "Current tag: $current_tag"
-  echo "New tag: $new_tag"
+  echo "New tag created"
   echo "::set-output name=tag::$current_tag"
   echo "::set-output name=version::$current_version"
   echo "::set-output name=new_tag::$new_tag"
   echo "::set-output name=new_version::$new_version"
   exit 0
 else
-  echo "Cannot create new tag: $new_tag"
+  echo "Cannot create new tag"
   exit 10
 fi
-
