@@ -51,10 +51,10 @@ git tag "$new_tag"
 
 if [ $? -eq 0 ]; then
   echo "New tag created"
-  echo "::set-output name=tag::$current_tag"
-  echo "::set-output name=version::$current_version"
-  echo "::set-output name=new_tag::$new_tag"
-  echo "::set-output name=new_version::$new_version"
+  echo "tag=$current_tag" >> $GITHUB_OUTPUT
+  echo "version=$current_version" >> $GITHUB_OUTPUT
+  echo "new_tag=$new_tag" >> $GITHUB_OUTPUT
+  echo "new_version=$new_version" >> $GITHUB_OUTPUT
   exit 0
 else
   echo "Cannot create new tag"
