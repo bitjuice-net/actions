@@ -5,6 +5,8 @@ cd "${GITHUB_WORKSPACE}" || exit
 
 git config --global --add safe.directory "${GITHUB_WORKSPACE}"
 
+git fetch --all --tags
+
 current_tag="$(git describe --abbrev=0 --tags)"
 message="$(git log -n 1 HEAD --format=%B)"
 suffix="$(git rev-parse --short HEAD)"
