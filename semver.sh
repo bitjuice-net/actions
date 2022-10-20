@@ -9,6 +9,8 @@ current_tag="$(git describe --abbrev=0 --tags)"
 message="$(git log -n 1 HEAD --format=%B)"
 suffix="$(git rev-parse --short HEAD)"
 
+echo "Current tag: $current_tag"
+
 if [[ $current_tag =~ ^(v?)([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; 
 then 
   prefix=${BASH_REMATCH[1]}
@@ -17,6 +19,7 @@ then
   patch=${BASH_REMATCH[4]}
 else 
   echo "Invalid tag: $current_tag"
+  exit 1
 fi
 
 current_version="$major.$minor.$patch"
@@ -52,6 +55,6 @@ if [ $? -eq 0 ]; then
   exit 0
 else
   echo "Cannot create new tag: $new_tag"
-  exit 1
+  exit 10
 fi
 
